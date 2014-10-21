@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Age</title>
+  <style>
+    body {font-family: sans-serif;}
+  </style>
+</head>
+<body>
+  <h1>Your age: <span id="age"></span> years old.</h1>
+  <h3>There are: <span id="hours"></span> hours left today.</h3>
+  <h3>There are: <span id="month"></span> days left this month.</h3>
+  <h3>There are: <span id="year"></span> days left this year.</h3>
+
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script>
+  $(document).ready(function() {
+    var year = 31536000730;
+    var day = 86400000;
+    var hour = 3600000;
+
+    function age(){ 
+      var now = Date.now(); 
+      var myAge = now - (new Date(1997, 11, 19)); 
+      return (myAge/year).toString().substring(0, 15); 
+    } 
+    function hours() {
+      var now = new Date;
+      var midnight = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 24);
+      var timeUntil = midnight.getTime() - now.getTime();
+      return (timeUntil / hour).toString().substring(0, 8);
+    } 
+    function months() {
+      var now = new Date;
+      var endOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0);
+      var timeUntil = endOfMonth.getTime() - now.getTime(); 
+      return (timeUntil / day).toString().substring(0, 8);
+    }
+    function days() {
+      var now = new Date; 
+      var endOfYear = new Date(now.getFullYear()+1, 0, 0);
+      var timeUntil = endOfYear.getTime() - now.getTime();
+      return (timeUntil / day).toString().substring(0, 8);
+    }
+    setInterval(function(){ 
+      $('#age').text(age()); 
+      $('#hours').text(hours());
+      $('#month').text(months());
+      $('#year').text(days());
+    }, 10);
+  });
+  </script>
+</body>
+</html>
